@@ -8,10 +8,3 @@
           name: nginx
           state: latest
           update_cache: true
-    - name: Start and enable services
-      block:
-      - name: S/E nginx
-        ansible.builtin.systemd:
-          name: nginx
-          state: started
-          enabled: true
