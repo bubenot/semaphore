@@ -1,27 +1,17 @@
 - name: Install base packages on new servers Corporation of WNTN
-  hosts: winten
-  remote_user: root
-
+  hosts: all
   tasks:
-
     - name: Install base packages
       block:
-
       - name: Install nginx
         apt:
           name: nginx
           state: latest
           update_cache: true
-
-      when: ansible_os_family == "Debian"
-
     - name: Start and enable services
       block:
-
       - name: S/E nginx
         ansible.builtin.systemd:
           name: nginx
           state: started
           enabled: true
-
-      when: ansible_os_family == "Debian" 
