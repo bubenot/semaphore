@@ -1,0 +1,7 @@
+- name: Get Ansible Facts
+  hosts: winten
+
+  tasks:
+    - name: Show ansible facts
+      ansible.builtin.debug:
+        msg: {{ ansible_facts }}
