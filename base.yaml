@@ -1,7 +1,7 @@
 - name: Install base packages on new servers Corporation of WNTN
   hosts: all
   tasks:
-    - name: Install base packages
+    - name: Install Base Packages
       block:
       - name: Install nginx
         apt:
