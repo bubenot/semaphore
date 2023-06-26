@@ -1,0 +1,87 @@
+- name: Install base packages on new servers Corporation of WNTN
+  hosts: winten
+  remote_user: root
+
+  tasks:
+
+    - name: Install base packages
+      block:
+
+      - name: Install nginx
+        apt:
+          name: nginx
+          state: latest
+          update_cache: true
+
+      - name: Install redis-server
+        apt:
+          name: redis-server
+          state: latest
+          update_cache: true
+
+      - name: Install sudo
+        apt:
+          name: sudo
+          state: latest
+          update_cache: true
+
+      - name: Install htop
+        apt:
+          name: htop
+          state: latest
+          update_cache: true
+
+      when: ansible_os_family == "Debian"
+
+
+    - name: Install PostgreSQL
+      block:
+
+      - name: Add PostgreSQL GPG apt key
+        apt_key:
+          url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+          state: present
+
+      - name: Add PostgreSQL Repository
+        apt_repository:
+          repo: deb http://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main
+          state: present
+          filename: pgdg
+
+      - name: Install postgresql14
+        apt:
+          name: postgresql-14
+          state: latest
+          update_cache: true
+
+      when: ansible_os_family == "Debian"
+
+
+    - name: Start and enable services
+      block:
+
+      - name: S/E nginx
+        ansible.builtin.systemd:
+          name: nginx
+          state: started
+          enabled: true
+
+      - name: S/E redis
+        ansible.builtin.systemd:
+          name: redis
+          state: started
+          enabled: true
+
+      - name: S/E redis-server
+        ansible.builtin.systemd:
+          name: redis-server
+          state: started
+          enabled: true
+
+      - name: S/E postgresql
+        ansible.builtin.systemd:
+          name: postgresql
+          state: started
+          enabled: true
+
+      when: ansible_os_family == "Debian" 
