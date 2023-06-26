@@ -4,4 +4,4 @@
   tasks:
     - name: Show ansible facts
       ansible.builtin.debug:
-        msg: {{ ansible_facts }}
+        var: ansible_facts
