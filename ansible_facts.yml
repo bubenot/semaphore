@@ -1,5 +1,5 @@
 - name: Get Ansible Facts
-  hosts: winten
+  hosts: wealy
 
   tasks:
     - name: Show ansible facts
